@@ -4,6 +4,7 @@ import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "@/components/BootstrapClient";
 import AuthProvider from "@/components/AuthProvider";
+import Providers from "./StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
-        <BootstrapClient />
+        <Providers>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+          <BootstrapClient />
+        </Providers>
       </body>
     </html>
   );
