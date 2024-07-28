@@ -19,7 +19,7 @@ const Signup = () => {
       formState: { errors },
    } = useForm<Inputs>()
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
-
+      
    }
 
    return (
