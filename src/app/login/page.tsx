@@ -1,6 +1,8 @@
 "use client"
 import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth as serk } from '@/app/firebaseConfig';
 
 type Inputs = {
    email: string,
@@ -16,7 +18,20 @@ const Login = () => {
       formState: { errors },
    } = useForm<Inputs>()
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
-      
+
+
+
+      console.log(data);
+      const signInUser = async (email: string, password: string) => {
+         try {
+            const userCredential = await signInWithEmailAndPassword(serk, email, password);
+            // Giriş başarılı
+            console.log('Giriş yapıldı:', userCredential.user);
+         } catch (error) {
+            console.error('Giriş yapılırken hata:', error);
+         }
+      };
+      signInUser('test@gmail.com', '12345678');
    }
 
 
@@ -56,7 +71,10 @@ const Login = () => {
                />
                {errors.password && <span className='text-danger'>{errors.password.message}</span>}
             </div>
-            <button type="submit" className={"btn btn-primary w-100 h-50"}>Giriş yap</button>
+            <div className='d-flex align-items-center gap-2'>
+               <button type="submit" className={"btn btn-primary w-75 h-50"}>Giriş Yap</button>
+               <div className='w-25'>Henüz kaydolmadıysan <a href="/signup">kaydol</a></div>
+            </div>
          </form>
       </div>
    )

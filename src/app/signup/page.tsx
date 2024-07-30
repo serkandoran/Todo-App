@@ -1,6 +1,13 @@
 "use client"
-import React from 'react'
+import Error from '@/components/Error/Error'
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
+import { db } from '../firebaseConfig'
+import { addDoc, collection } from 'firebase/firestore'
+import { useRouter } from 'next/navigation'
+
+
 
 type Inputs = {
    name: string
@@ -9,8 +16,9 @@ type Inputs = {
    password: string,
 }
 
-
 const Signup = () => {
+   const [apiError, setApiError] = useState<boolean>(false)
+   const router = useRouter();
 
    const {
       register,
@@ -20,10 +28,34 @@ const Signup = () => {
    } = useForm<Inputs>()
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
       
+      const {name, surname, email, password} = data
+      const auth = getAuth();
+
+      try{
+         const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+         const user = userCredentials.user;
+
+         const docRef = await addDoc(collection(db, "users"), {
+            name: name + " " + surname,
+            email,
+            password,
+            todos: []
+         })
+
+         router.push("/")
+      }catch(e){
+         console.log(e,"err occured signing up");
+      }
+
+
+
    }
 
    return (
       <div>
+
+         { apiError && <Error closeModal = {setApiError} /> }
+
          <form onSubmit={handleSubmit(onSubmit)} className='w-50 mx-auto bg-light py-3 px-4 border rounded mt-5'>
             <h2 className='text-center pb-4'>Kayıt Ol</h2>
             <div className='d-flex gap-2'>
