@@ -1,8 +1,10 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth as serk } from '@/app/firebaseConfig';
+import { auth, auth as serk } from '@/app/firebaseConfig';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation'
 
 type Inputs = {
    email: string,
@@ -10,6 +12,13 @@ type Inputs = {
 }
 
 const Login = () => {
+
+   const authStore = useSelector((state:any)=>state.auth.authUser)
+   const router = useRouter();
+
+   useEffect(()=>{
+      if (authStore !== null) router.push("/")
+   },[])
 
    const {
       register,

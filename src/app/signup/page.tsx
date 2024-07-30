@@ -41,7 +41,6 @@ const Signup = () => {
             password,
             todos: []
          })
-
          router.push("/")
       }catch(e){
          console.log(e,"err occured signing up");
