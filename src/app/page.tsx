@@ -1,7 +1,7 @@
 "use client"
 import { useSelector } from "react-redux";
-import Login from "./login/page";
 import styles from "./page.module.css";
+import Login from "@/components/Login/Login";
 
 export default function Home() {
   const store = useSelector((state:any) => state.auth.authUser)

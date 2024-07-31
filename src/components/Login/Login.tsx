@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth} from '@/app/firebaseConfig';
+import { auth } from '@/app/firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation'
 import { AppDispatch } from '@/redux/store';
@@ -14,13 +14,13 @@ type Inputs = {
 }
 const Login = () => {
 
-   const authStore = useSelector((state:any)=>state.auth.authUser)
+   const authStore = useSelector((state: any) => state.auth.authUser)
    const router = useRouter();
    const dispatch = useDispatch<AppDispatch>();
 
-   useEffect(()=>{
+   useEffect(() => {
       if (authStore !== null) router.push("/")
-   },[])
+   }, [])
 
    const {
       register,
