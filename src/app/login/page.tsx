@@ -1,13 +1,26 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth} from '@/app/firebaseConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation'
+import { AppDispatch } from '@/redux/store';
+import { updateAuth } from '@/redux/features/authenticatedUserSlice';
 
 type Inputs = {
    email: string,
    password: string,
 }
-
 const Login = () => {
+
+   const authStore = useSelector((state:any)=>state.auth.authUser)
+   const router = useRouter();
+   const dispatch = useDispatch<AppDispatch>();
+
+   useEffect(()=>{
+      if (authStore !== null) router.push("/")
+   },[])
 
    const {
       register,
@@ -16,7 +29,22 @@ const Login = () => {
       formState: { errors },
    } = useForm<Inputs>()
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
-      
+      const { email, password } = data
+
+      const signInUser = async (email: string, password: string) => {
+         try {
+            let userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            dispatch(updateAuth(
+               {
+                  uid: userCredentials.user.uid,
+                  email: userCredentials.user.email
+               }
+            ))
+         } catch (error) {
+            console.error('Giriş yapılırken hata:', error);
+         }
+      };
+      signInUser(email, password);
    }
 
 
@@ -56,7 +84,10 @@ const Login = () => {
                />
                {errors.password && <span className='text-danger'>{errors.password.message}</span>}
             </div>
-            <button type="submit" className={"btn btn-primary w-100 h-50"}>Giriş yap</button>
+            <div className='d-flex align-items-center gap-2'>
+               <button type="submit" className={"btn btn-primary w-75 h-50"}>Giriş Yap</button>
+               <div className='w-25'>Henüz kaydolmadıysan <a href="/signup">kaydol</a></div>
+            </div>
          </form>
       </div>
    )
