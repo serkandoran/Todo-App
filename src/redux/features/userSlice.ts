@@ -36,7 +36,6 @@ export const fetchUserData = createAsyncThunk("users/fetchUserData", async (emai
          name: firebaseUserData.name || '',
          password: firebaseUserData.password || ''
       }
-      console.log(firebaseUserData," thunk içi");
       return userData
    }catch(e){
       return thunkAPI.rejectWithValue("Failed to fetch user data");

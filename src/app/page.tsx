@@ -12,9 +12,14 @@ export default function Home() {
   const userStore = useSelector((state:any) => state.userStore.data)
   const dispatch = useDispatch<AppDispatch>();
 
+
   useEffect(()=>{
     if(authStore){
-      dispatch(fetchUserData(authStore.email));
+      try{
+        dispatch(fetchUserData(authStore.email));
+      }catch(e){
+        console.log(e);
+      }
     }
   }, [authStore])
 
