@@ -1,13 +1,9 @@
 "use client"
-import Error from '@/components/Error/Error'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
-import { addDoc, arrayUnion, collection, doc, getDocs, getFirestore, query, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore'
+import { arrayUnion, collection, doc, getDocs, getFirestore, query, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from '@/redux/store'
-import { fetchUserData } from '@/redux/features/userSlice'
+import { useSelector } from 'react-redux'
 
 type Inputs = {
    desc: string
@@ -18,12 +14,10 @@ type Inputs = {
 
 
 const CreateTodo = () => {
-   const dispatch = useDispatch<AppDispatch>();
    const userStore = useSelector((state: any) => state.userStore.data)
    const authStore = useSelector((state: any) => state.auth.authUser)
-   
-   console.log(authStore);
-   
+   const router = useRouter();
+
 
    const {
       register,
@@ -52,8 +46,7 @@ const CreateTodo = () => {
                })
             })
          }
-         
-         
+         router.push("/");
          console.log("adding document success");
       } catch (e) {
          console.log(e);
