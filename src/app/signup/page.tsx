@@ -27,7 +27,7 @@ const Signup = () => {
       formState: { errors },
    } = useForm<Inputs>()
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
-      
+
       const {name, surname, email, password} = data
       const auth = getAuth();
 
@@ -45,9 +45,6 @@ const Signup = () => {
       }catch(e){
          console.log(e,"err occured signing up");
       }
-
-
-
    }
 
    return (
@@ -117,10 +114,7 @@ const Signup = () => {
                />
                {errors.password && <span className='text-danger'>{errors.password.message}</span>}
             </div>
-            <div className='d-flex align-items-center gap-2'>
-               <button type="submit" className={"btn btn-primary w-75 h-50"}>Kayıt Ol</button>
-               <div className='w-25'>Zaten kayıtlıysan <a href="/login">Giriş Yap</a></div>
-            </div>
+            <button type="submit" className={"btn btn-primary w-100 h-50"}>Kaydol</button>
          </form>
       </div>
    )

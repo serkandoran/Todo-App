@@ -2,19 +2,21 @@
 import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, auth as serk } from '@/app/firebaseConfig';
-import { useSelector } from 'react-redux';
+import { auth} from '@/app/firebaseConfig';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation'
+import { AppDispatch } from '@/redux/store';
+import { updateAuth } from '@/redux/features/authenticatedUserSlice';
 
 type Inputs = {
    email: string,
    password: string,
 }
-
 const Login = () => {
 
    const authStore = useSelector((state:any)=>state.auth.authUser)
    const router = useRouter();
+   const dispatch = useDispatch<AppDispatch>();
 
    useEffect(()=>{
       if (authStore !== null) router.push("/")
@@ -27,20 +29,22 @@ const Login = () => {
       formState: { errors },
    } = useForm<Inputs>()
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+      const { email, password } = data
 
-
-
-      console.log(data);
       const signInUser = async (email: string, password: string) => {
          try {
-            const userCredential = await signInWithEmailAndPassword(serk, email, password);
-            // Giriş başarılı
-            console.log('Giriş yapıldı:', userCredential.user);
+            let userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            dispatch(updateAuth(
+               {
+                  uid: userCredentials.user.uid,
+                  email: userCredentials.user.email
+               }
+            ))
          } catch (error) {
             console.error('Giriş yapılırken hata:', error);
          }
       };
-      signInUser('test@gmail.com', '12345678');
+      signInUser(email, password);
    }
 
 

@@ -3,7 +3,7 @@ import { auth as auth_ } from '@/app/firebaseConfig';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar/Navbar';
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { updateAuth } from '@/redux/features/authenticatedUserSlice';
@@ -13,7 +13,7 @@ const getCurrentUser = (callback: (user: User | null) => void) => {
 };
 
 const AuthProvider = ({ children }: any) => {
-   
+   const routerPath = usePathname();
    const [user, setUser] = useState<User | null | undefined>(undefined);
    const router = useRouter();
    const dispatch = useDispatch<AppDispatch>();
@@ -24,8 +24,7 @@ const AuthProvider = ({ children }: any) => {
    }, []);
 
    useEffect(()=>{
-      if(user === undefined) return
-      if(user === null) router.push("/login")
+      if(user === undefined || user === null) return
       dispatch(updateAuth(
          {
             uid:user?.uid,
