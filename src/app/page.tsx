@@ -9,17 +9,14 @@ import User from "@/components/User/User";
 
 export default function Home() {
   const authStore = useSelector((state:any) => state.auth.authUser)
-  const userStore = useSelector((state:any) => state.userStore.data)
   const dispatch = useDispatch<AppDispatch>();
 
-
   useEffect(()=>{
+    async function fetchData(){
+      await dispatch(fetchUserData(authStore.email));
+    }
     if(authStore){
-      try{
-        dispatch(fetchUserData(authStore.email));
-      }catch(e){
-        console.log(e);
-      }
+      fetchData();
     }
   }, [authStore])
 

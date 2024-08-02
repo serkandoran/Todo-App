@@ -1,16 +1,24 @@
 import { TTodo } from '@/redux/features/userSlice'
-import React from 'react'
+import React, { useState } from 'react'
 
 
 
 type props = {
-  listItems: TTodo[]
+  listItems: TTodo[],
+  selectedItem : (val: number) => void;
 }
 
+const NotDone = ({listItems, selectedItem}: props) => {
+  const [selectedValue,setSelectedValue] = useState<number>(-1);
 
-const NotDone = ({listItems}: props) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    setSelectedValue(Number(e.target.value));
+  }
 
-  
+  const updateTodo = async()=>{
+    if(selectedValue === -1) return
+    selectedItem(selectedValue)
+  }
 
   return ( <div className='d-flex flex-column w-50 border border-dark p-4 justify-content-center'>
     <table className="table table-danger table-striped-columns table-hover w-100">
@@ -31,7 +39,14 @@ const NotDone = ({listItems}: props) => {
               <td className='w-100'>{el.desc}</td>
               <td className='w-25'>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                  <input 
+                    className="form-check-input" 
+                    type="radio" 
+                    name="flexRadioDefault" 
+                    id="flexRadioDefault1" 
+                    value={idx}
+                    onChange={handleChange}
+                  />
                   <label className="form-check-label" htmlFor="flexRadioDefault2">Yapıldı</label>
                 </div>
               </td>
@@ -40,7 +55,7 @@ const NotDone = ({listItems}: props) => {
         }
       </tbody>
     </table>
-    <button className='btn btn-primary w-50 mx-auto'>kaydet</button>
+    <button onClick={updateTodo} className='btn btn-primary w-50 mx-auto'>kaydet</button>
   </div>
   )
 }

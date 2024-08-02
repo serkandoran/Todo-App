@@ -35,6 +35,7 @@ export const fetchUserData = createAsyncThunk("users/fetchUserData", async (emai
    try {
       const userRef = collection(db, "users");
       const q = query(userRef, where("email", "==", email));
+      
       const snapShot = await getDocs(q);
       const firebaseUserData = snapShot.docs[0].data();
       const todos: TTodo[] = (firebaseUserData.todos || []).map((todo: any) => ({
@@ -47,13 +48,12 @@ export const fetchUserData = createAsyncThunk("users/fetchUserData", async (emai
       const userData: TUserData = {
          email: firebaseUserData.email || "",
          todos: {
-            done: doneTodos.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()), // Yeni olanlar önce
-            notDone: notDoneTodos.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()) // Yeni olanlar önce
+            done: doneTodos,
+            notDone: notDoneTodos
          },
          name: firebaseUserData.name || '',
          password: firebaseUserData.password || ''
       };
-
       return userData;
    } catch (e) {
       return thunkAPI.rejectWithValue("Failed to fetch user data");
