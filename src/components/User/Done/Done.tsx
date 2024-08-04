@@ -17,7 +17,7 @@ const Done = ({listItems, deleteItem}: props) => {
     if(deletingTodoId || deletingTodoId === 0) deleteItem(listItems[deletingTodoId])
   }
 
-  return ( <div className='d-flex flex-column w-50 border border-dark p-4 justify-content-center'>
+  return ( <div className='d-flex flex-column w-50 border rounded p-2 justify-content-center'>
     <div className="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex={-1}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content p-3 gap-4">
@@ -32,7 +32,7 @@ const Done = ({listItems, deleteItem}: props) => {
 
     <table className="table table-success table-striped-columns table-hover w-100">
       <thead>
-        <tr>
+        <tr className='table-light'>
           <th scope="col">#</th>
           <th scope="col">Konu</th>
           <th scope="col">Açıklama</th>
@@ -56,7 +56,6 @@ const Done = ({listItems, deleteItem}: props) => {
             </tr>
           })
         }
-        
       </tbody>
     </table>
   </div>

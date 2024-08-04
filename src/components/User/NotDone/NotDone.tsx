@@ -20,10 +20,10 @@ const NotDone = ({listItems, selectedItem}: props) => {
     selectedItem(selectedValue)
   }
 
-  return ( <div className='d-flex flex-column w-50 border border-dark p-4 justify-content-center'>
+  return ( <div className='d-flex flex-column w-50 border rounded p-2 justify-content-center'>
     <table className="table table-danger table-striped-columns table-hover w-100">
       <thead>
-        <tr>
+        <tr className='table-light'>
           <th scope="col">#</th>
           <th scope="col">Konu</th>
           <th scope="col">Açıklama</th>

@@ -28,29 +28,7 @@ const Navbar = () => {
                <span className="navbar-toggler-icon"></span>
             </button>
          </div>
-         {
-            authStore && <div className='d-flex gap-4 my-3'>
-               <div className='p-2' style={{ cursor: "pointer" }}>
-                  <p className="navbar-brand text-success m-0 p-0">TAMAMLANMIŞ</p>
-                  <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                     <span className="navbar-toggler-icon"></span>
-                  </button>
-               </div>
-               <div className="input-group">
-                  <input type="text" className="form-control" placeholder="Todo Ara" aria-label="searchtodo" aria-describedby="button-addon2" />
-                  <button className="btn btn-outline-secondary" type="button" id="button-addon2">Ara</button>
-                  <button className="btn btn-outline-secondary" type="button" id="button-addon3">
-                     <a href="/create">Todo Ekle</a>
-                  </button>
-               </div>
-               <div className='p-2 cursor-pointer' style={{ cursor: "pointer" }}>
-                  <p className="navbar-brand text-danger m-0 p-0">TAMAMLANMAMIŞ</p>
-                  <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                     <span className="navbar-toggler-icon"></span>
-                  </button>
-               </div>
-            </div>
-         }
+         
          {
             authStore && <div onClick={logoutUser} className='d-flex ml-auto'>
                <div className='p-2'>
