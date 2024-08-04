@@ -17,7 +17,7 @@ const Done = ({listItems, deleteItem}: props) => {
     if(deletingTodoId || deletingTodoId === 0) deleteItem(listItems[deletingTodoId])
   }
 
-  return ( <div className='d-flex flex-column w-50 border rounded p-2 justify-content-center'>
+  return ( <div className='d-flex flex-column w-50 border rounded p-2'>
     <div className="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex={-1}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content p-3 gap-4">

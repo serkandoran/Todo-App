@@ -17,10 +17,11 @@ const NotDone = ({listItems, selectedItem}: props) => {
 
   const updateTodo = async()=>{
     if(selectedValue === -1) return
-    selectedItem(selectedValue)
+    selectedItem(selectedValue);
+    setSelectedValue(-1);
   }
 
-  return ( <div className='d-flex flex-column w-50 border rounded p-2 justify-content-center'>
+  return ( <div className='d-flex flex-column w-50 border rounded p-2'>
     <table className="table table-danger table-striped-columns table-hover w-100">
       <thead>
         <tr className='table-light'>

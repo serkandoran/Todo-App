@@ -69,7 +69,7 @@ const User = () => {
           </div>
           <div className="input-group">
             <input onChange={handleSearchInput} type="text" className="form-control" placeholder="Todo Ara" aria-label="searchtodo" aria-describedby="button-addon2" />
-            <button className="btn btn-outline-secondary border" type="button" id="button-addon2">Ara</button>
+            <button disabled className="btn btn-outline-secondary border" type="button" id="button-addon2">Ara</button>
             <button className="btn btn-outline-secondary border" type="button" id="button-addon3">
               <a href="/create" className='text-decoration-none'>Todo Ekle</a>
             </button>
