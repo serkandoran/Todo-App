@@ -8,6 +8,7 @@ import { AppDispatch } from '@/redux/store';
 const Navbar = () => {
    const authStore = useSelector((state:any) => state.auth.authUser)
    const dispatch = useDispatch<AppDispatch>();
+   
 
    const logoutUser = async()=>{
       try {
@@ -27,6 +28,7 @@ const Navbar = () => {
                <span className="navbar-toggler-icon"></span>
             </button>
          </div>
+         
          {
             authStore && <div onClick={logoutUser} className='d-flex ml-auto'>
                <div className='p-2'>
