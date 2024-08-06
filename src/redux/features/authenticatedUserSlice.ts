@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
-type TAuthUser = any
-const initialState : TAuthUser = {
-   authUser: undefined
+const initialState = {
+   authUser: undefined,
+   logoutClicked: false
 }
 
 const authenticatedUserSlice = createSlice({
@@ -12,10 +12,13 @@ const authenticatedUserSlice = createSlice({
    reducers:{
       updateAuth: (state, action:PayloadAction<any>) =>{
          state.authUser = action.payload
+      },
+      updateLogoutClickedFromNav: (state) => {
+         state.logoutClicked = true;
       }
    }
 })
 
-export const { updateAuth } = authenticatedUserSlice.actions;
+export const { updateAuth, updateLogoutClickedFromNav } = authenticatedUserSlice.actions;
 export default authenticatedUserSlice.reducer;
 

@@ -1,14 +1,11 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from '@/app/firebaseConfig';
+import { auth } from '@/app/firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation'
 import { AppDispatch } from '@/redux/store';
 import { updateAuth } from '@/redux/features/authenticatedUserSlice';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { fetchUserData } from '@/redux/features/userSlice';
 
 type Inputs = {
    email: string,
@@ -16,13 +13,9 @@ type Inputs = {
 }
 const Login = () => {
 
-   const authStore = useSelector((state: any) => state.auth.authUser)
-   const router = useRouter();
    const dispatch = useDispatch<AppDispatch>();
+   const loginRef = useRef<HTMLDivElement>(null);
 
-   useEffect(() => {
-      if (authStore !== null) router.push("/");
-   }, [])
 
    const {
       register,
@@ -32,7 +25,6 @@ const Login = () => {
    } = useForm<Inputs>()
    const onSubmit: SubmitHandler<Inputs> = async (data) => {
       const { email, password } = data
-
       const signInUser = async (email: string, password: string) => {
          try {
             let userCredentials = await signInWithEmailAndPassword(auth, email, password);
@@ -51,7 +43,7 @@ const Login = () => {
 
 
    return (
-      <div>
+      <div ref={loginRef}>
          <form onSubmit={handleSubmit(onSubmit)} className='w-50 mx-auto bg-light py-3 px-4 border rounded mt-5'>
             <h2 className='text-center pb-4'>Giriş yap</h2>
             <div className="mb-3">

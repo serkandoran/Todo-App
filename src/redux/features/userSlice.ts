@@ -44,7 +44,6 @@ export const fetchUserData = createAsyncThunk("users/fetchUserData", async (emai
       }));
       const doneTodos = todos.filter(todo => todo.isDone);
       const notDoneTodos = todos.filter(todo => !todo.isDone);
-
       const userData: TUserData = {
          email: firebaseUserData.email || "",
          todos: {
@@ -56,7 +55,7 @@ export const fetchUserData = createAsyncThunk("users/fetchUserData", async (emai
       };
       return userData;
    } catch (e) {
-      return thunkAPI.rejectWithValue("Failed to fetch user data");
+      return thunkAPI.rejectWithValue("none");
    }
 })
 

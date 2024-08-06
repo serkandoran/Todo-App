@@ -3,7 +3,9 @@ import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { arrayUnion, collection, doc, getDocs, getFirestore, query, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '@/redux/store'
+import { fetchUserData } from '@/redux/features/userSlice'
 
 type Inputs = {
    desc: string
@@ -15,9 +17,8 @@ type Inputs = {
 
 const CreateTodo = () => {
    const userStore = useSelector((state: any) => state.userStore.data)
-   const authStore = useSelector((state: any) => state.auth.authUser)
    const router = useRouter();
-
+   const dispatch = useDispatch<AppDispatch>();
 
    const {
       register,
@@ -31,12 +32,12 @@ const CreateTodo = () => {
          const now = Timestamp.fromDate(new Date());
          data.isDone = false;
          data.createdAt = now;
-         
+
          const newTodo = data;
 
          const db = getFirestore();
          const userRef = collection(db,"users");
-         const q = query(userRef, where("email", "==",authStore.email))
+         const q = query(userRef, where("email", "==",userStore.email))
          const querySnapShot = await getDocs(q);
          if(!querySnapShot.empty){
             querySnapShot.forEach(async(docSnapShot)=>{
@@ -46,6 +47,7 @@ const CreateTodo = () => {
                })
             })
          }
+         await dispatch(fetchUserData(userStore.email));
          router.push("/");
          console.log("adding document success");
       } catch (e) {

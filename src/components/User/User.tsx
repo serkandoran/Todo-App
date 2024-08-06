@@ -62,23 +62,21 @@ const User = () => {
   return (
    <div className='d-flex p-4 w-75 mx-auto gap-4 flex-column'>
 
-      {
-        <div className='d-flex gap-4 mt-3 align-items-center w-75 mx-auto'>
-          <div className='py-2 d-flex align-items-center' style={{ cursor: "pointer" }}>
-            <h4 className='text-success'>TAMAMLANMIŞ</h4>
-          </div>
-          <div className="input-group">
-            <input onChange={handleSearchInput} type="text" className="form-control" placeholder="Todo Ara" aria-label="searchtodo" aria-describedby="button-addon2" />
-            <button disabled className="btn btn-outline-secondary border" type="button" id="button-addon2">Ara</button>
-            <button className="btn btn-outline-secondary border" type="button" id="button-addon3">
-              <a href="/create" className='text-decoration-none'>Todo Ekle</a>
-            </button>
-          </div>
-          <div className='p-2 cursor-pointer d-flex align-items-center' style={{ cursor: "pointer" }}>
-            <h4 className='text-danger'>TAMAMLANMAMIŞ</h4>
-          </div>
+      <div className='d-flex gap-4 mt-3 align-items-center w-75 mx-auto'>
+        <div className='py-2 d-flex align-items-center' style={{ cursor: "pointer" }}>
+          <h4 className='text-success'>TAMAMLANMIŞ</h4>
         </div>
-      }
+        <div className="input-group">
+          <input onChange={handleSearchInput} type="text" className="form-control" placeholder="Todo Ara" aria-label="searchtodo" aria-describedby="button-addon2" />
+          <button disabled className="btn btn-outline-secondary border" type="button" id="button-addon2">Ara</button>
+          <button className="btn btn-outline-secondary border" type="button" id="button-addon3">
+            <a href="/create" className='text-decoration-none'>Todo Ekle</a>
+          </button>
+        </div>
+        <div className='p-2 cursor-pointer d-flex align-items-center' style={{ cursor: "pointer" }}>
+          <h4 className='text-danger'>TAMAMLANMAMIŞ</h4>
+        </div>
+      </div>
       <hr/>
       <div className='d-flex gap-4'>
         <Done listItems = 
