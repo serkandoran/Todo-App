@@ -29,4 +29,4 @@ Set up your firebase configurations in the `firebaseConfig.ts` file.
 
 ## 🔗 Social
 
-- [Linkedin](https://www.linkedin.com/in/serkandoran/)
+[![LinkedIn](https://img.shields.io/badge//SerkanDORAN-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/serkandoran/)
